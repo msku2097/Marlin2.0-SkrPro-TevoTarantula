@@ -1,3 +1,269 @@
+/**************** TEVO TARANTULA EASY CONFIG ***************************
+            Original idea by terryb.print3d@gmail.com
+             Modified by jb.github@rcairgallery.com
+    The latest version of Terry's original file will always be found at:
+          https://github.com/terryb58/Marlin-EasyConfig
+    The latest version of this file (and complete firmware) will always
+  be found at:
+          https://github.com/JimBrown/MarlinTarantula
+    This is an attempt to create a simple configuration for as many
+  different Tevo Tarantula variants as possible.  This will always be
+  a work in progress. Email me if you have any questions, suggestions,
+  or if you encounter problems when using Easy Config.
+    This is a Marlin 2.0.x configuration file. I will update this as
+  new versions of Marlin are released.
+    NOTE: Sanity check should still work and should not show any errors.
+      Please report any errors.  Thank you.
+    NOTE: Don't forget to do an M502 followed by an M500 any time you
+      upload the firmware.
+    See https://youtu.be/-sQ8p00pG5E for an excellent tutorial on using
+    this firmware.
+***********************************************************************/
+
+#define PRINTER_NAME "TEVO Tarantula (EasyConfig)"  // Change this to whatever you wish, or leave it as it is.
+                                                    // NOTE: Whatever you put here will have " Ready..." appended to it.
+
+/**
+ * Equipment options
+ */
+#define LARGE_BED
+#define SDSUPPORT
+//#define CHANGE_Y_DIRECTION        // If your bed homes in the wrong direction (it should move front to back) enable this.
+//#define CHANGE_X_DIRECTION        // If your X carriage homes in the wrong direction (it should move right to left) enable this.
+//#define CHANGE_Z_DIRECTION        // If your Z homes in the wrong direction (it should move top to bottom) enable this.
+//#define HOTEND_E3DV6              // Genuine E3D v6 hotend.
+//#define FULL_GRAPHIC_SMART        // Enable this if you have a RepRap Discount Full Graphic Smart Controller (The
+                                    // stock controller is a RepRap Discount Smart Controller)
+#define Z_DUAL_STEPPER_DRIVERS    // Enable this if you have dual Z stepper motors with the second stepper motor
+                                    // connected to the next available E plug (usually E1)
+
+#define MOTHERBOARD BOARD_BIGTREE_SKR_PRO_V1_1        // Original controller board with built in stepper drivers. Works with MKS BASE 1.3, 1.4
+//#define MOTHERBOARD BOARD_MKS_BASE_15       // MKS v1.5 with Allegro A4982 stepper drivers
+//#define MOTHERBOARD BOARD_MKS_BASE_HEROIC   // MKS BASE 1.0 with Heroic HR4982 stepper drivers
+//#define MOTHERBOARD BOARD_MKS_GEN_L         // Newer controller board with replacable stepper drivers
+//#define MOTHERBOARD BOARD_MKS_GEN_L_V2
+
+/**
+ * Offset from endpoints to get nozzle to 0,0 (front/left of bed)
+ * (How to center prints: https://github.com/JimBrown/MarlinTarantula/wiki/How-to-center-your-prints-(EasyConfig))
+ */
+#define NOZZLE_X          0
+#define NOZZLE_Y          0
+
+/**
+ * Minimal Z height (in mm) before homing (G28) for Z clearance above the bed, clamps, ...
+ */
+#define Z_HOMING_HEIGHT 5
+
+/**
+ * Primary Extruder steps per mm (plugged in to E0 port on controller)
+ * (How to calibrate: https://toms3d.org/2014/04/06/3d-printing-guides-calibrating-your-extruder/)
+ */
+#define E0_STEPS      100 // Stock extruder. If you have a Tevo Titan, try 400 then calibrate.
+//#define CHANGE_E0_DIRECTION   // If your extruder is going backwards, enable this.
+
+/**
+ * Z Axis steps per mm (Default for stock lead screw is 1600)
+ * If you install a lead screw with a different pitch and/or lead, change this
+ */
+#define Z_STEPS      1600 // Stock lead screw
+
+/**
+ * Z-Probe type (must be none or one of them)
+ * If a Z-Probe type is selected, a Bed Leveling type other than MANUAL must be selected.
+ */
+#define BLTOUCH       // ANTClabs BLTouch sensor (might also work with clones)
+//#define SN04          // Green sensor
+//#define INDUCTIVE_NO  // Normally open inductive sensor
+//#define INDUCTIVE_NC  // Normally closed inductive sensor
+//#define SERVO_PROBE   // Endstop switch on rotating arm. Set servo angles!
+//#define NOZZLE_PROBE	// Nozzle wired up to contact metal on bed
+
+/**
+ * Bed leveling type (see: https://github.com/JimBrown/MarlinTarantula/wiki/Bed-leveling-types-(EasyConfig))
+ * Must choose one of these other than MANUAL if a Z-Probe type is selected.
+ */
+//#define TRIPOINT
+//#define LINEAR
+#define BILINEAR
+//#define UBL
+//#define MANUAL
+
+/**
+ * Z-Probe offset from nozzle (https://github.com/JimBrown/MarlinTarantula/wiki/How-to-determine-your-Z-Probe-offset)
+ * Use only one of Left/Right and Front/Behind. Others must be 0 (zero)
+ * If you have a dual nozzle the offsets are calculated from the primary nozzle (the one plugged in to E0)
+ */
+#define SENSOR_LEFT        0
+#define SENSOR_RIGHT       0
+#define SENSOR_FRONT       0
+#define SENSOR_BEHIND      0
+
+/**
+ * Number of grid points in each direction
+ * Minimum 3. Maximum 15 for UBL. Maximum 7 for MANUAL
+ */
+#define GRID_POINTS        3
+
+/**
+ * Margin around perimiter of bed for probing (will not probe outside this margin)
+ */
+#define BED_MARGIN         1
+
+/**
+ * Servo probe deploy and stow angles
+ */
+#define SERVO_DEPLOY    70
+#define SERVO_STOW      0
+
+/**
+ * Enable this to turn on support for two extruders
+ */
+//#define DUAL_EXTRUDER // If not single nozzle, primary nozzle plugged in to E0 port
+                        // and secondary plugged in to E1 port.
+//#define SINGLENOZZLE  // Enable this if you are using a single mixing nozzle (requires DUAL_EXTRUDER)
+
+/**
+ * Offset for second nozzle from first nozzle
+ * The X value is positive if the secondary nozzle is to the right of the primary and
+ * negative if the secondary nozzle is to the left of the primary.
+ * The Y value is positive if the secondary nozzle is behind the primary and
+ * negative if the secondary nozzle is in front of the primary.
+ * The Z value is positive if the secondary nozzle is further away from the bed than the primary and
+ * negative if the secondary nozzle is closer to the bed than the primary.
+ */
+#define EXTRUDER_E1_X 0
+#define EXTRUDER_E1_Y 0
+#define EXTRUDER_E1_Z 0
+
+/** 
+ * Secondary Extruder steps per mm
+ * (how to calibrate: https://toms3d.org/2014/04/06/3d-printing-guides-calibrating-your-extruder/)
+ */
+#define E1_STEPS      100 // Stock extruder. If you have a Tevo Titan, try 400 then calibrate
+//#define CHANGE_E1_DIRECTION   // If your secondary extruder is going backwards, enable this.
+
+/**
+ * TEVO Tarantula Custom PID Settings - Stock Hotend
+ */
+#define  hot_Kp 9.84
+#define  hot_Ki 0.50
+#define  hot_Kd 48.17
+// FIND YOUR OWN: "M303 E0 C8 S200" to run autotune on the hotend at 200 degreesC for 8 cycles.
+// More info here: http://reprap.org/wiki/PID_Tuning
+
+/**
+ * TEVO Tarantula Custom PID Settings - Stock Heatbed
+ */
+#define  bed_Kp 984.88
+#define  bed_Ki 193.91
+#define  bed_Kd 1250.55
+// FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
+// More info here: http://reprap.org/wiki/PID_Tuning
+
+/**
+ * If PID Autotune stops because the temp overshoots the requested S value, enable this and
+ * set the overshoot temp to a value 5 or 10 degrees higher. If the overshoot value is more
+ * than 40 degrees, things may not be ok with your system.
+ */
+//#define MAX_OVERSHOOT_PID_AUTOTUNE 20
+
+/**
+ * Enable a custom menu that contains three preheat presets for PLA, ABS and PETG
+ */
+#define CUSTOM_USER_MENUS
+
+/**
+ * Set your custom preheat presets here
+ *
+ * NOTE: Only PLA and ABS will appear under the Prepare menu. You must enable
+ *       CUSTOM_USER_MENUS for PETG to appear, along with PLA and ABS, under Custom Commands.
+ *       PLA and ABS will appear under both Custom Command and Prepare.
+ */
+#define Hot_PLA     215
+#define Bed_PLA      75
+
+#define Hot_ABS 		240
+#define Bed_ABS 		100
+
+#define Hot_PETG 		230
+#define Bed_PETG     80
+
+/**
+ * Fan Soft PWM. Use software PWM to drive the fan, as for the heaters. This uses a very low frequency
+ * which is not as annoying as with the hardware PWM. Redo PID Autotune.
+ */
+//#define SOFT_PWM
+
+/**
+ * Enable this to use the classic Jerk system. Default is to use the new Junction Deviation system
+ */
+#define CLASSIC_JERK
+
+/**
+ * If not using "Classic Jerk", set the Junction Deviation distance here.
+ * (Can also be set in gcode using M205 J0.013; Set Junction Deviation)
+ */
+#define JD_MM 0.013
+
+/**
+ * S-Curve Acceleration
+ *
+ * This option eliminates vibration during printing by fitting a Bézier
+ * curve to move acceleration, producing much smoother direction changes.
+ *
+ * See https://github.com/synthetos/TinyG/wiki/Jerk-Controlled-Motion-Explained
+ */
+//#define S_CURVE_ACCELERATION
+
+/**
+ * Enable this to provide a realtime control over the head position via the LCD menu system that works while printing.
+ * Using it, one can tune the z-position while printing the first layer.
+ *
+ * Warning: Does not respect endstops!
+ */
+#define BABYSTEPPING
+
+/**
+ * Extra movement of X axis. Can help with probing more of the bed.
+ * Set both to 0 (zero) if you do not have a Z-Probe.
+ */
+#define XTRA_BED_LEFT     0  // Distance nozzle can move towards the left past X = 0
+#define XTRA_BED_RIGHT    0  // Distance nozzle can move towards the right past X = 200
+
+/**
+ * Extra movement of Y axis. Can help with probing more of the bed.
+ * Set both to 0 (zero) if you do not have a Z-Probe.
+ */
+#define XTRA_BED_FRONT    0  // Distance bed can move towards the front past Y = 200 (Y=280 for large bed)
+#define XTRA_BED_BACK     0  // Distance bed can move towards the back past Y = 0
+
+/**
+ * Enable ONLY ONE of these if one of your stepper ports is not working and you wish to use the E1 stepper port.
+ * NOTE: Can NOT be used with dual extruders. Works only on RAMPS based boards (such as MKS boards)
+ */
+//#define EXTRUDER_USE_E1
+//#define X_AXIS_USE_E1
+//#define Y_AXIS_USE_E1
+//#define Z_AXIS_USE_E1
+
+/**
+ * Enable this if your E0 heater port is not working and you wish to use the E1 heater port.
+ * NOTE: Can NOT be used with dual nozzles. Works only on RAMPS based boards (such as MKS boards)
+ */
+//#define HOTEND_USE_E1
+
+/*
+ ************************ END OF EASY CONFIG ****************************
+ *======================================================================*
+ * DO NOT EDIT BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING!!!!!! *
+ *======================================================================*
+ */
+
+#if ENABLED(BLTOUCH_V3) && DISABLED(BLTOUCH)
+  #define BLTOUCH
+#endif
+
 /**
  * Marlin 3D Printer Firmware
  * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
@@ -71,7 +337,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(none, default config)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Jim Brown, TEVO Tarantula EasyConfig)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -134,7 +400,7 @@
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
-//#define CUSTOM_MACHINE_NAME "3D Printer"
+#define CUSTOM_MACHINE_NAME PRINTER_NAME
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like http://www.uuidgenerator.net/version4
@@ -144,7 +410,11 @@
 
 // This defines the number of extruders
 // :[1, 2, 3, 4, 5, 6]
-#define EXTRUDERS 1
+#if ENABLED(DUAL_EXTRUDER)
+   #define EXTRUDERS 2
+#else
+   #define EXTRUDERS 1
+#endif
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
 #define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
@@ -309,9 +579,11 @@
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
 // For the other hotends it is their distance from the extruder 0 hotend.
-//#define HOTEND_OFFSET_X { 0.0, 20.00 } // (mm) relative X-offset for each nozzle
-//#define HOTEND_OFFSET_Y { 0.0, 5.00 }  // (mm) relative Y-offset for each nozzle
-//#define HOTEND_OFFSET_Z { 0.0, 0.00 }  // (mm) relative Z-offset for each nozzle
+#if ENABLED(DUAL_EXTRUDER) && DISABLED(SINGLENOZZLE)
+  #define HOTEND_OFFSET_X { 0.0, EXTRUDER_E1_X }  // (mm) relative X-offset for each nozzle
+  #define HOTEND_OFFSET_Y { 0.0, EXTRUDER_E1_Y }  // (mm) relative Y-offset for each nozzle
+  #define HOTEND_OFFSET_Z { 0.0, EXTRUDER_E1_Z }  // (mm) relative Z-offset for each nozzle
+#endif
 
 // @section machine
 
@@ -405,13 +677,21 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 1
-#define TEMP_SENSOR_1 0
+#if ENABLED(HOTEND_E3DV6)
+  #define TEMP_SENSOR_0 5
+#else
+  #define TEMP_SENSOR_0 1
+#endif
+#if ENABLED(DUAL_EXTRUDER) && DISABLED(SINGLENOZZLE)
+  #define TEMP_SENSOR_1 1
+#else
+  #define TEMP_SENSOR_1 0
+#endif
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
 #define TEMP_SENSOR_4 0
 #define TEMP_SENSOR_5 0
-#define TEMP_SENSOR_BED 0
+#define TEMP_SENSOR_BED 1
 #define TEMP_SENSOR_CHAMBER 0
 
 // Dummy thermistor constant temperature readings, for use with 998 and 999
@@ -470,15 +750,15 @@
   //#define SLOW_PWM_HEATERS      // PWM with very low frequency (roughly 0.125Hz=8s) and minimum state time of approximately 1s useful for heaters driven by a relay
   //#define PID_PARAMS_PER_HOTEND // Uses separate PID parameters for each extruder (useful for mismatched extruders)
                                   // Set/get with gcode: M301 E[extruder number, 0-2]
-  #define PID_FUNCTIONAL_RANGE 10 // If the temperature difference between the target temperature and the actual temperature
+  #define PID_FUNCTIONAL_RANGE 25  // If the temperature difference between the target temperature and the actual temperature
                                   // is more than PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
   // Ultimaker
-  #define DEFAULT_Kp 22.2
-  #define DEFAULT_Ki 1.08
-  #define DEFAULT_Kd 114
+  //#define DEFAULT_Kp 22.2
+  //#define DEFAULT_Ki 1.08
+  //#define DEFAULT_Kd 114
 
   // MakerGear
   //#define DEFAULT_Kp 7.0
@@ -489,6 +769,11 @@
   //#define DEFAULT_Kp 63.0
   //#define DEFAULT_Ki 2.25
   //#define DEFAULT_Kd 440
+
+  // TEVO Tarantula Custom PID Settings
+  #define  DEFAULT_Kp hot_Kp
+  #define  DEFAULT_Ki hot_Ki
+  #define  DEFAULT_Kd hot_Kd
 
 #endif // PIDTEMP
 
@@ -509,7 +794,7 @@
  * heater. If your configuration is significantly different than this and you don't understand
  * the issues involved, don't use bed PID until someone else verifies that your hardware works.
  */
-//#define PIDTEMPBED
+#define PIDTEMPBED
 
 //#define BED_LIMIT_SWITCHING
 
@@ -527,15 +812,20 @@
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define DEFAULT_bedKp 10.00
-  #define DEFAULT_bedKi .023
-  #define DEFAULT_bedKd 305.4
+  //#define DEFAULT_bedKp 10.00
+  //#define DEFAULT_bedKi .023
+  //#define DEFAULT_bedKd 305.4
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from pidautotune
   //#define DEFAULT_bedKp 97.1
   //#define DEFAULT_bedKi 1.41
   //#define DEFAULT_bedKd 1675.16
+
+  // TEVO Tarantula Custom PID Settings - Heatbed
+  #define  DEFAULT_bedKp bed_Kp
+  #define  DEFAULT_bedKi bed_Ki
+  #define  DEFAULT_bedKd bed_Kd
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
@@ -557,7 +847,7 @@
  * Note: For Bowden Extruders make this large enough to allow load/unload.
  */
 #define PREVENT_LENGTHY_EXTRUDE
-#define EXTRUDE_MAXLENGTH 200
+#define EXTRUDE_MAXLENGTH 650
 
 //===========================================================================
 //======================== Thermal Runaway Protection =======================
@@ -612,16 +902,21 @@
 //#define USE_ZMAX_PLUG
 
 // Enable pullup for all endstops to prevent a floating state
-#define ENDSTOPPULLUPS
+//#define ENDSTOPPULLUPS
 #if DISABLED(ENDSTOPPULLUPS)
   // Disable ENDSTOPPULLUPS to set pullups individually
   //#define ENDSTOPPULLUP_XMAX
   //#define ENDSTOPPULLUP_YMAX
   //#define ENDSTOPPULLUP_ZMAX
-  //#define ENDSTOPPULLUP_XMIN
-  //#define ENDSTOPPULLUP_YMIN
-  //#define ENDSTOPPULLUP_ZMIN
-  //#define ENDSTOPPULLUP_ZMIN_PROBE
+  #define ENDSTOPPULLUP_XMIN
+  #define ENDSTOPPULLUP_YMIN
+  #if ANY(BLTOUCH, SN04, INDUCTIVE_NO, INDUCTIVE_NC, SERVO_PROBE, NOZZLE_PROBE)
+    //#define ENDSTOPPULLUP_ZMIN
+    #define ENDSTOPPULLUP_ZMIN_PROBE
+  #else
+    #define ENDSTOPPULLUP_ZMIN
+    //#define ENDSTOPPULLUP_ZMIN_PROBE
+  #endif
 #endif
 
 // Enable pulldown for all endstops to prevent a floating state
@@ -638,13 +933,25 @@
 #endif
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
-#define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Z_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
+#define X_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+#define Y_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+#if ENABLED(BLTOUCH)
+  // #define Z_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+#elif ENABLED(INDUCTIVE_NC)
+  #define Z_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+#else
+  #define Z_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+#endif
+//#define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+//#define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+//#define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+#if ANY(BLTOUCH, INDUCTIVE_NC)
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING false // set to true to invert the logic of the probe.
+#elif ANY(SN04, INDUCTIVE_NO, SERVO_PROBE, NOZZLE_PROBE)
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING true // set to true to invert the logic of the probe.
+#else
+  //#define Z_MIN_PROBE_ENDSTOP_INVERTING false // set to true to invert the logic of the probe.
+#endif
 
 /**
  * Stepper Drivers
@@ -711,21 +1018,31 @@
  * following movement settings. If fewer factors are given than the
  * total number of extruders, the last value applies to the rest.
  */
-//#define DISTINCT_E_FACTORS
+#if ENABLED(DUAL_EXTRUDER)
+  #define DISTINCT_E_FACTORS
+#endif
 
 /**
  * Default Axis Steps Per Unit (steps/mm)
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 640, 640, 1600, 100 }
+#if ENABLED(DUAL_EXTRUDER)
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, Z_STEPS, E0_STEPS, E1_STEPS }
+#else
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, Z_STEPS, E0_STEPS }
+#endif
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 300, 300, 5, 25 }
+#if ENABLED(DUAL_EXTRUDER)
+  #define DEFAULT_MAX_FEEDRATE          { 300, 300, 7, 50, 50 }
+#else
+  #define DEFAULT_MAX_FEEDRATE          { 300, 300, 7, 50 }
+#endif
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -738,7 +1055,11 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 }
+#if ENABLED(DUAL_EXTRUDER)
+  #define DEFAULT_MAX_ACCELERATION      { 3000,  3000, 100, 10000, 10000 }
+#else
+  #define DEFAULT_MAX_ACCELERATION      { 3000,  3000, 100, 10000 }
+#endif
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -753,8 +1074,8 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          3000    // X, Y, Z and E acceleration for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  3000    // E acceleration for retracts
+#define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  2000    // E acceleration for retracts
 #define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves
 
 /**
@@ -765,11 +1086,11 @@
  * When changing speed and direction, if the difference is less than the
  * value set here, it may happen instantaneously.
  */
-//#define CLASSIC_JERK
+#define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
-  #define DEFAULT_XJERK 10.0
-  #define DEFAULT_YJERK 10.0
-  #define DEFAULT_ZJERK  0.3
+  #define DEFAULT_XJERK  4.0
+  #define DEFAULT_YJERK  7.0
+  #define DEFAULT_ZJERK  0.2
 
   //#define LIMITED_JERK_EDITING        // Limit edit via M205 or LCD to DEFAULT_aJERK * 2
   #if ENABLED(LIMITED_JERK_EDITING)
@@ -777,7 +1098,7 @@
   #endif
 #endif
 
-#define DEFAULT_EJERK    5.0  // May be used by Linear Advance
+#define DEFAULT_EJERK    2.5  // May be used by Linear Advance
 
 /**
  * Junction Deviation Factor
@@ -814,7 +1135,9 @@
  *
  * Enable this option for a probe connected to the Z Min endstop pin.
  */
-#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#if ANY(BLTOUCH, SN04, INDUCTIVE_NO, INDUCTIVE_NC, SERVO_PROBE, NOZZLE_PROBE)
+  #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#endif
 
 /**
  * Z_MIN_PROBE_PIN
@@ -846,31 +1169,31 @@
  * Use G29 repeatedly, adjusting the Z height at each point with movement commands
  * or (with LCD_BED_LEVELING) the LCD controller.
  */
-//#define PROBE_MANUALLY
-//#define MANUAL_PROBE_START_Z 0.2
+#if ENABLED(MANUAL)
+  #define PROBE_MANUALLY
+  //#define MANUAL_PROBE_START_Z 0.2
+#endif
 
 /**
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-//#define FIX_MOUNTED_PROBE
-
-/**
- * Use the nozzle as the probe, as with a conductive
- * nozzle system or a piezo-electric smart effector.
- */
-//#define NOZZLE_AS_PROBE
+  #if ANY(SN04, INDUCTIVE_NO, INDUCTIVE_NC, NOZZLE_PROBE)
+  #define FIX_MOUNTED_PROBE
+#endif
 
 /**
  * Z Servo Probe, such as an endstop switch on a rotating arm.
  */
-//#define Z_PROBE_SERVO_NR 0       // Defaults to SERVO 0 connector.
-//#define Z_SERVO_ANGLES { 70, 0 } // Z Servo Deploy and Stow angles
+#if ENABLED(SERVO_PROBE)
+  #define Z_PROBE_SERVO_NR 0   // Defaults to SERVO 0 connector.
+  #define Z_SERVO_ANGLES { SERVO_DEPLOY, SERVO_STOW }  // Z Servo Deploy and Stow angles
+#endif
 
 /**
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
-#define BLTOUCH
+//#define BLTOUCH  // Do NOT set here. It is set in the EasyConfig section.
 
 /**
  * Touch-MI Probe by hotends.fr
@@ -927,10 +1250,10 @@
  *
  * Specify a Probe position as { X, Y, Z }
  */
-#define NOZZLE_TO_PROBE_OFFSET { 10, 10, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { SENSOR_RIGHT - SENSOR_LEFT, SENSOR_BEHIND - SENSOR_FRONT, 0 }
 
 // Certain types of probes need to stay away from edges
-#define MIN_PROBE_EDGE 10
+#define MIN_PROBE_EDGE BED_MARGIN
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 8000
@@ -939,7 +1262,7 @@
 #define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
 
 // Feedrate (mm/m) for the "accurate" probe of each point
-#define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
+#define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 3)
 
 /**
  * Multiple Probing
@@ -950,7 +1273,7 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
-//#define MULTIPLE_PROBING 2
+#define MULTIPLE_PROBING 2
 //#define EXTRA_PROBING    1
 
 /**
@@ -967,10 +1290,10 @@
  * Example: `M851 Z-5` with a CLEARANCE of 4  =>  9mm from bed to nozzle.
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
-#define Z_CLEARANCE_DEPLOY_PROBE   5 // Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
-#define Z_CLEARANCE_MULTI_PROBE     5 // Z Clearance between multiple probes
-#define Z_AFTER_PROBING           5 // Z position after probing is done
+#define Z_CLEARANCE_DEPLOY_PROBE    Z_HOMING_HEIGHT // Z Clearance for Deploy/Stow
+#define Z_CLEARANCE_BETWEEN_PROBES  Z_HOMING_HEIGHT // Z Clearance between probe points
+#define Z_CLEARANCE_MULTI_PROBE     Z_HOMING_HEIGHT // Z Clearance between multiple probes
+#define Z_AFTER_PROBING           	Z_HOMING_HEIGHT // Z position after probing is done
 
 #define Z_PROBE_LOW_POINT          -2 // Farthest distance below the trigger-point to go before stopping
 
@@ -979,7 +1302,9 @@
 #define Z_PROBE_OFFSET_RANGE_MAX 20
 
 // Enable the M48 repeatability test to test probe accuracy
-//#define Z_MIN_PROBE_REPEATABILITY_TEST
+#if ANY(BLTOUCH, SN04, INDUCTIVE_NO, INDUCTIVE_NC, SERVO_PROBE, NOZZLE_PROBE) && DISABLED(MANUAL)
+  #define Z_MIN_PROBE_REPEATABILITY_TEST
+#endif
 
 // Before deploy/stow pause for user confirmation
 //#define PAUSE_BEFORE_DEPLOY_STOW
@@ -1026,15 +1351,35 @@
 // @section machine
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#define INVERT_X_DIR false
-#define INVERT_Y_DIR true
-#define INVERT_Z_DIR false
+#if ENABLED(CHANGE_X_DIRECTION)
+  #define INVERT_X_DIR true
+#else
+  #define INVERT_X_DIR false
+#endif
+#if ENABLED(CHANGE_Y_DIRECTION)
+  #define INVERT_Y_DIR true
+#else
+  #define INVERT_Y_DIR false
+#endif
+#if ENABLED(CHANGE_Z_DIRECTION)
+  #define INVERT_Z_DIR true
+#else
+  #define INVERT_Z_DIR false
+#endif
 
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR true
-#define INVERT_E1_DIR false
+#if ENABLED(CHANGE_E0_DIRECTION)
+  #define INVERT_E0_DIR true
+#else
+  #define INVERT_E0_DIR false
+#endif
+#if ENABLED(CHANGE_E1_DIRECTION)
+  #define INVERT_E1_DIR true
+#else
+  #define INVERT_E1_DIR false
+#endif
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
 #define INVERT_E4_DIR false
@@ -1046,15 +1391,11 @@
 
 //#define UNKNOWN_Z_NO_RAISE // Don't raise Z (lower the bed) if Z is "unknown." For beds that fall when Z is powered off.
 
-#define Z_HOMING_HEIGHT 5  // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
+//#define Z_HOMING_HEIGHT 4  // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
                              // Be sure you have this distance over your Z_MAX_POS in case.
 
-#define E0_STEPS      43.75
-#define CHANGE_E0_DIRECTION
 // Direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
-#define Z_STEPS      800
-
 #define X_HOME_DIR -1
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
@@ -1062,15 +1403,19 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 220
-#define Y_BED_SIZE 280
+#define X_BED_SIZE 200
+#if ENABLED(LARGE_BED)
+  #define Y_BED_SIZE 280
+#else
+  #define Y_BED_SIZE 200
+#endif
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
-#define X_MIN_POS 0
-#define Y_MIN_POS 0
+#define X_MIN_POS 0 - XTRA_BED_LEFT
+#define Y_MIN_POS 0 - XTRA_BED_BACK
 #define Z_MIN_POS 0
-#define X_MAX_POS X_BED_SIZE
-#define Y_MAX_POS Y_BED_SIZE
+#define X_MAX_POS X_BED_SIZE + XTRA_BED_RIGHT
+#define Y_MAX_POS Y_BED_SIZE + XTRA_BED_FRONT
 #define Z_MAX_POS 200
 
 /**
@@ -1172,17 +1517,59 @@
  *   leveling in steps so you can manually adjust the Z height at each grid-point.
  *   With an LCD controller the process is guided step-by-step.
  */
-//#define AUTO_BED_LEVELING_3POINT
-//#define AUTO_BED_LEVELING_LINEAR
-#define AUTO_BED_LEVELING_BILINEAR
-//#define AUTO_BED_LEVELING_UBL
-//#define MESH_BED_LEVELING
+#if ENABLED(TRIPOINT)
+  #define AUTO_BED_LEVELING_3POINT
+#elif ENABLED(LINEAR)
+  #define AUTO_BED_LEVELING_LINEAR
+#elif ENABLED(BILINEAR)
+  #define AUTO_BED_LEVELING_BILINEAR
+#elif ENABLED(UBL)
+  #define AUTO_BED_LEVELING_UBL
+#elif ENABLED(MANUAL)
+  #define MESH_BED_LEVELING
+#endif
+
+/**
+ * Added by Jim Brown for EasyConfig use. Does the math to set probe points determined by nozzle,
+ * probe, and bed offsets.
+ */
+#if XTRA_BED_BACK > SENSOR_BEHIND
+  #define PROBE_Y_FRONT BED_MARGIN + SENSOR_BEHIND - (XTRA_BED_BACK - (XTRA_BED_BACK - SENSOR_BEHIND))
+#elif XTRA_BED_BACK > 0 && XTRA_BED_BACK <= SENSOR_BEHIND
+  #define PROBE_Y_FRONT BED_MARGIN + SENSOR_BEHIND - XTRA_BED_BACK
+#else
+  #define PROBE_Y_FRONT BED_MARGIN + SENSOR_BEHIND
+#endif
+#if XTRA_BED_FRONT > SENSOR_FRONT
+  #define PROBE_Y_BACK Y_BED_SIZE - BED_MARGIN - SENSOR_FRONT + XTRA_BED_FRONT - (XTRA_BED_FRONT - SENSOR_FRONT)
+#elif XTRA_BED_FRONT > 0 && XTRA_BED_FRONT <= SENSOR_FRONT
+  #define PROBE_Y_BACK Y_BED_SIZE - BED_MARGIN - SENSOR_FRONT + XTRA_BED_FRONT
+#else
+  #define PROBE_Y_BACK Y_BED_SIZE - BED_MARGIN - SENSOR_FRONT
+#endif
+#if XTRA_BED_LEFT > SENSOR_RIGHT
+  #define PROBE_X_LEFT BED_MARGIN + SENSOR_RIGHT - (XTRA_BED_LEFT - (XTRA_BED_LEFT - SENSOR_RIGHT))
+#elif XTRA_BED_LEFT > 0 && XTRA_BED_LEFT <= SENSOR_RIGHT
+  #define PROBE_X_LEFT BED_MARGIN + SENSOR_RIGHT - XTRA_BED_LEFT
+#else
+  #define PROBE_X_LEFT BED_MARGIN + SENSOR_RIGHT
+#endif
+#if XTRA_BED_RIGHT > SENSOR_LEFT
+  #define PROBE_X_RIGHT X_BED_SIZE - BED_MARGIN - SENSOR_LEFT + (XTRA_BED_RIGHT - (XTRA_BED_RIGHT - SENSOR_LEFT))
+#elif XTRA_BED_RIGHT > 0 && XTRA_BED_RIGHT <= SENSOR_LEFT
+  #define PROBE_X_RIGHT X_BED_SIZE - BED_MARGIN - SENSOR_LEFT + XTRA_BED_RIGHT
+#else
+  #define PROBE_X_RIGHT X_BED_SIZE - BED_MARGIN - SENSOR_LEFT
+#endif
+
 
 /**
  * Normally G28 leaves leveling disabled on completion. Enable
  * this option to have G28 restore the prior leveling state.
  */
-//#define RESTORE_LEVELING_AFTER_G28
+#if ANY(BLTOUCH, SN04, INDUCTIVE_NO, INDUCTIVE_NC, SERVO_PROBE, NOZZLE_PROBE, MANUAL)
+  #define RESTORE_LEVELING_AFTER_G28
+#endif
 
 /**
  * Enable detailed logging of G28, G29, M48, etc.
@@ -1206,7 +1593,7 @@
   /**
    * Enable the G26 Mesh Validation Pattern tool.
    */
-  //#define G26_MESH_VALIDATION
+  #define G26_MESH_VALIDATION
   #if ENABLED(G26_MESH_VALIDATION)
     #define MESH_TEST_NOZZLE_SIZE    0.4  // (mm) Diameter of primary nozzle.
     #define MESH_TEST_LAYER_HEIGHT   0.2  // (mm) Default layer height for the G26 Mesh Validation Tool.
@@ -1220,7 +1607,7 @@
 #if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  #define GRID_MAX_POINTS_X 3
+  #define GRID_MAX_POINTS_X GRID_POINTS
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Probe along the Y axis, advancing X after each column
@@ -1252,8 +1639,8 @@
 
   //#define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
 
-  #define MESH_INSET 1              // Set Mesh bounds as an inset region of the bed
-  #define GRID_MAX_POINTS_X 10      // Don't use more than 15 points per axis, implementation limited.
+  #define MESH_INSET BED_MARGIN     // Set Mesh bounds as an inset region of the bed
+  #define GRID_MAX_POINTS_X GRID_POINTS      // Don't use more than 15 points per axis, implementation limited.
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   #define UBL_MESH_EDIT_MOVES_Z     // Sophisticated users prefer no movement of nozzle
@@ -1268,8 +1655,8 @@
   //=================================== Mesh ==================================
   //===========================================================================
 
-  #define MESH_INSET 10          // Set Mesh bounds as an inset region of the bed
-  #define GRID_MAX_POINTS_X 3    // Don't use more than 7 points per axis, implementation limited.
+  #define MESH_INSET BED_MARGIN  // Set Mesh bounds as an inset region of the bed
+  #define GRID_MAX_POINTS_X GRID_POINTS    // Don't use more than 7 points per axis, implementation limited.
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   //#define MESH_G28_REST_ORIGIN // After homing all axes ('G28' or 'G28 XYZ') rest Z at Z_MIN_POS
@@ -1280,7 +1667,9 @@
  * Add a bed leveling sub-menu for ABL or MBL.
  * Include a guided procedure if manual probing is enabled.
  */
-//#define LCD_BED_LEVELING
+#if NONE(BLTOUCH, SN04, INDUCTIVE_NO, INDUCTIVE_NC, SERVO_PROBE, NOZZLE_PROBE) && ENABLED(MANUAL)
+  #define LCD_BED_LEVELING
+#endif
 
 #if ENABLED(LCD_BED_LEVELING)
   #define MESH_EDIT_Z_STEP  0.025 // (mm) Step size while manually probing Z axis.
@@ -1312,9 +1701,9 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-#define MANUAL_X_HOME_POS 0
-#define MANUAL_Y_HOME_POS 0
-//#define MANUAL_Z_HOME_POS 0
+#define MANUAL_X_HOME_POS NOZZLE_X
+#define MANUAL_Y_HOME_POS NOZZLE_Y
+//#define MANUAL_Z_HOME_POS 0 // Distance between the nozzle to printbed after homing
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
 //
@@ -1325,16 +1714,25 @@
 // - Move the Z probe (or nozzle) to a defined XY point before Z Homing when homing all axes (G28).
 // - Prevent Z homing when the Z probe is outside bed area.
 //
-//#define Z_SAFE_HOMING
+#if ANY(BLTOUCH, SN04, INDUCTIVE_NO, INDUCTIVE_NC, SERVO_PROBE, NOZZLE_PROBE)
+  #define Z_SAFE_HOMING
+  #if ENABLED(NOZZLE_PROBE)
+    #define Z_SAFE_X_POINT PROBE_X_LEFT
+    #define Z_SAFE_Y_POINT PROBE_Y_BACK
+  #else
+    #define Z_SAFE_X_POINT ((X_BED_SIZE) / 2)
+    #define Z_SAFE_Y_POINT ((Y_BED_SIZE) / 2)
+  #endif
+#endif
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT ((X_BED_SIZE) / 2)    // X point for Z homing when homing all axes (G28).
-  #define Z_SAFE_HOMING_Y_POINT ((Y_BED_SIZE) / 2)    // Y point for Z homing when homing all axes (G28).
+  #define Z_SAFE_HOMING_X_POINT Z_SAFE_X_POINT    // X point for Z homing when homing all axes (G28).
+  #define Z_SAFE_HOMING_Y_POINT Z_SAFE_Y_POINT    // Y point for Z homing when homing all axes (G28).
 #endif
 
 // Homing speeds (mm/m)
 #define HOMING_FEEDRATE_XY (50*60)
-#define HOMING_FEEDRATE_Z  (4*60)
+#define HOMING_FEEDRATE_Z  (7*60)
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
@@ -1411,7 +1809,7 @@
  *   M501 - Read settings from EEPROM. (i.e., Throw away unsaved changes)
  *   M502 - Revert settings to "factory" defaults. (Follow with M500 to init the EEPROM.)
  */
-//#define EEPROM_SETTINGS     // Persistent storage with M500 and M501
+#define EEPROM_SETTINGS     // Persistent storage with M500 and M501
 //#define DISABLE_M503        // Saves ~2700 bytes of PROGMEM. Disable for release!
 #define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save PROGMEM.
 #if ENABLED(EEPROM_SETTINGS)
@@ -1424,7 +1822,7 @@
 // When enabled Marlin will send a busy status message to the host
 // every couple of seconds when it can't accept commands.
 //
-#define HOST_KEEPALIVE_FEATURE        // Disable this if your host doesn't like keepalive messages
+//#define HOST_KEEPALIVE_FEATURE        // Disable this if your host doesn't like keepalive messages
 #define DEFAULT_KEEPALIVE_INTERVAL 2  // Number of seconds between "busy" messages. Set with M113.
 #define BUSY_WHILE_HEATING            // Some hosts require "busy" messages even during heating
 
@@ -1447,14 +1845,19 @@
 
 // Preheat Constants
 #define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND 180
-#define PREHEAT_1_TEMP_BED     70
+#define PREHEAT_1_TEMP_HOTEND   Hot_PLA // PLA
+#define PREHEAT_1_TEMP_BED      Bed_PLA
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
 
 #define PREHEAT_2_LABEL       "ABS"
-#define PREHEAT_2_TEMP_HOTEND 240
-#define PREHEAT_2_TEMP_BED    110
+#define PREHEAT_2_TEMP_HOTEND   Hot_ABS  // ABS
+#define PREHEAT_2_TEMP_BED      Bed_ABS
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
+
+#define PREHEAT_3_LABEL       "PETG"
+#define PREHEAT_3_TEMP_HOTEND   Hot_PETG  // PETG
+#define PREHEAT_3_TEMP_BED      Bed_PETG
+#define PREHEAT_3_FAN_SPEED     0 // Value from 0 to 255
 
 /**
  * Nozzle Park
@@ -1467,7 +1870,7 @@
  *    P1  Raise the nozzle always to Z-park height.
  *    P2  Raise the nozzle by Z-park amount, limited to Z_MAX_POS.
  */
-//#define NOZZLE_PARK_FEATURE
+#define NOZZLE_PARK_FEATURE
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z_raise }
@@ -1570,7 +1973,7 @@
  *
  * View the current statistics with M78.
  */
-//#define PRINTCOUNTER
+#define PRINTCOUNTER
 
 //=============================================================================
 //============================= LCD and SD support ============================
@@ -1628,7 +2031,7 @@
  * you must uncomment the following option or it won't work.
  *
  */
-#define SDSUPPORT
+//#define SDSUPPORT
 
 /**
  * SD CARD: SPI SPEED
@@ -1662,7 +2065,7 @@
 // This option overrides the default number of encoder pulses needed to
 // produce one step. Should be increased for high-resolution encoders.
 //
-//#define ENCODER_PULSES_PER_STEP 4
+#define ENCODER_PULSES_PER_STEP 4
 
 //
 // Use this option to override the number of step signals required to
@@ -1685,7 +2088,7 @@
 //
 //  Set this option if CLOCKWISE causes values to DECREASE
 //
-//#define REVERSE_ENCODER_DIRECTION
+#define REVERSE_ENCODER_DIRECTION
 
 //
 // This option reverses the encoder direction for navigating LCD menus.
@@ -1708,7 +2111,7 @@
 //
 // Add individual axis homing items (Home X, Home Y, and Home Z) to the LCD menu.
 //
-//#define INDIVIDUAL_AXIS_HOMING_MENU
+#define INDIVIDUAL_AXIS_HOMING_MENU
 
 //
 // SPEAKER/BUZZER
@@ -1716,7 +2119,7 @@
 // If you have a speaker that can produce tones, enable it here.
 // By default Marlin assumes you have a buzzer with a fixed frequency.
 //
-//#define SPEAKER
+#define SPEAKER
 
 //
 // The duration and frequency for the UI feedback sound.
@@ -1725,8 +2128,8 @@
 // Note: Test audio output with the G-Code:
 //  M300 S<frequency Hz> P<duration ms>
 //
-//#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 2
-//#define LCD_FEEDBACK_FREQUENCY_HZ 5000
+#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 2
+#define LCD_FEEDBACK_FREQUENCY_HZ 5000
 
 //=============================================================================
 //======================== LCD / Controller Selection =========================
@@ -1739,7 +2142,9 @@
 //
 // Note: Usually sold with a white PCB.
 //
-//#define REPRAP_DISCOUNT_SMART_CONTROLLER
+#if DISABLED(FULL_GRAPHIC_SMART)
+  #define REPRAP_DISCOUNT_SMART_CONTROLLER
+#endif
 
 //
 // Original RADDS LCD Display+Encoder+SDCardReader
@@ -1779,7 +2184,7 @@
 
 //
 // Makeboard 3D Printer Parts 3D Printer Mini Display 1602 Mini Controller
-// https://www.aliexpress.com/item/32765887917.html
+// https://www.aliexpress.com/item/Micromake-Makeboard-3D-Printer-Parts-3D-Printer-Mini-Display-1602-Mini-Controller-Compatible-with-Ramps-1/32765887917.html
 //
 //#define MAKEBOARD_MINI_2_LINE_DISPLAY_1602
 
@@ -1879,7 +2284,9 @@
 // RepRapDiscount FULL GRAPHIC Smart Controller
 // http://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
 //
-//#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
+#if ENABLED(FULL_GRAPHIC_SMART)
+  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
+#endif
 
 //
 // ReprapWorld Graphical LCD
@@ -1953,7 +2360,7 @@
 
 //
 // Factory display for Creality CR-10
-// https://www.aliexpress.com/item/32833148327.html
+// https://www.aliexpress.com/item/Universal-LCD-12864-3D-Printer-Display-Screen-With-Encoder-For-CR-10-CR-7-Model/32833148327.html
 //
 // This is RAMPS-compatible using a single 10-pin connector.
 // (For CR-10 owners who want to replace the Melzi Creality board but retain the display)
@@ -2095,7 +2502,9 @@
 // Use software PWM to drive the fan, as for the heaters. This uses a very low frequency
 // which is not as annoying as with the hardware PWM. On the other hand, if this frequency
 // is too low, you should also increment SOFT_PWM_SCALE.
-//#define FAN_SOFT_PWM
+#if ENABLED(SOFT_PWM)
+  #define FAN_SOFT_PWM
+#endif
 
 // Incrementing this by 1 will double the software PWM frequency,
 // affecting heaters, and the fan if FAN_SOFT_PWM is enabled.
@@ -2207,7 +2616,9 @@
  * Set this manually if there are extra servos needing manual control.
  * Leave undefined or set to 0 to entirely disable the servo subsystem.
  */
-//#define NUM_SERVOS 3 // Servo index starts with 0 for M280 command
+#if ENABLED(SERVO_PROBE)
+  #define NUM_SERVOS 1 // Servo index starts with 0 for M280 command
+#endif
 
 // (ms) Delay  before the next move will start, to give the servo time to reach its target angle.
 // 300ms is a good value but you can try less delay.
@@ -2215,7 +2626,9 @@
 #define SERVO_DELAY { 300 }
 
 // Only power servos during movement, otherwise leave off to prevent jitter
-//#define DEACTIVATE_SERVOS_AFTER_MOVE
+#if ENABLED(SERVO_PROBE)
+  #define DEACTIVATE_SERVOS_AFTER_MOVE
+#endif
 
 // Allow servo angle to be edited and saved to EEPROM
 //#define EDITABLE_SERVO_ANGLES
